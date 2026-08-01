@@ -120,6 +120,20 @@ const marqueeItems = [
       </div>
     </section>
 
+    <!-- MEET ROCKY -->
+    <Section id="rocky">
+      <SecHeader title="Meet Rocky" lead="Servant Leader" />
+      <Reveal class="rocky-card">
+        <img class="rocky-photo" src="/assets/rocky-nguyen.png" alt="Rocky Nguyen" />
+        <div class="rocky-bio">
+          <p class="story-lede">CEO, Exponent Labs · Engineering Manager, Elysium Health</p>
+          <p>From building custom MySpace themes in middle school to engineering AI agents at a longevity company — Rocky taught himself to code because he wanted a theme he couldn't afford, then started selling them to other kids. See what's missing, build it yourself: the pattern never left him.</p>
+          <p>Today he runs Exponent Labs — the syndicate behind this page — and manages engineering at Elysium Health. His framework for the AI-native era: <strong>Design, Development, Distribution</strong>. His read on failure: <em>"Even a loss is a win — it's telling you what not to build."</em></p>
+          <Button href="https://exponentlabs.ai/events/arizonatechweek-2026/rocky-nguyen/" variant="alt" target="_blank" rel="noopener noreferrer">Learn more about Rocky</Button>
+        </div>
+      </Reveal>
+    </Section>
+
     <!-- MID-PAGE CTA — after Preview, before Phase 1 -->
     <section class="cta-strip">
       <div class="wrap">
@@ -558,6 +572,31 @@ const marqueeItems = [
     margin-bottom: 28px;
   }
 
+
+  /* ---- Meet Rocky ---- */
+  .rocky-card {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-top: 32px;
+  }
+  .rocky-photo {
+    flex-shrink: 0;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--color-ink);
+    box-shadow: var(--shadow);
+  }
+  .rocky-bio { flex: 1 1 420px; max-width: 640px; }
+  .rocky-bio .story-lede { font-size: 1.15rem; font-weight: 700; margin-bottom: 16px; }
+  .rocky-bio p { font-size: 1rem; line-height: 1.7; color: var(--color-ink-soft); margin-bottom: 16px; }
+  .rocky-bio p strong { color: var(--color-ink); }
+  .rocky-bio p em { font-style: normal; color: var(--color-ink); font-weight: 700; }
+  @media (max-width: 700px) {
+    .rocky-card { flex-direction: column; text-align: center; }
+  }
 
   /* ---- Prose blocks: Investment beat + Founder bio ---- */
   .prose-block { max-width: 720px; margin-top: 28px; }
