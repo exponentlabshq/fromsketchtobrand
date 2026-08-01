@@ -1,0 +1,32 @@
+---
+/**
+ * Tag.astro — mono uppercase pill. Yellow bg, 2px ink border, 100px radius.
+ * Used as eyebrow/section markers. Supports an optional leading dot via slot.
+ */
+interface Props {
+  class?: string;
+  [key: string]: unknown;
+}
+
+const { class: className = "", ...rest } = Astro.props;
+---
+
+<span class={["dv-tag", className].filter(Boolean).join(" ")} {...rest}>
+  <slot />
+</span>
+
+<style>
+  .dv-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: 2px solid var(--color-ink);
+    background: var(--color-yellow);
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+  }
+</style>

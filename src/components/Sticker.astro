@@ -1,0 +1,44 @@
+---
+/**
+ * Sticker.astro — mono chip with small offset shadow.
+ * Variants: default (paper-2) / y (yellow) / i (indigo, white text).
+ * 2px ink border, 8px radius.
+ */
+interface Props {
+  variant?: "default" | "y" | "i";
+  class?: string;
+  [key: string]: unknown;
+}
+
+const { variant = "default", class: className = "", ...rest } = Astro.props;
+
+const classes = ["dv-sticker", variant !== "default" && `dv-sticker--${variant}`, className]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<span class={classes} {...rest}>
+  <slot />
+</span>
+
+<style>
+  .dv-sticker {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: 2px solid var(--color-ink);
+    background: var(--color-paper-2);
+    padding: 8px 13px;
+    border-radius: var(--radius-chip);
+    box-shadow: var(--shadow-sm);
+    display: inline-block;
+  }
+  .dv-sticker--y {
+    background: var(--color-yellow);
+  }
+  .dv-sticker--i {
+    background: var(--color-indigo);
+    color: #fff;
+  }
+</style>

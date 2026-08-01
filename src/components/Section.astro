@@ -1,0 +1,26 @@
+---
+/**
+ * Section.astro — <section> scaffold + `.wrap` max-width container.
+ * Pass `id` for anchor links. `wrap={false}` to opt out of the inner container
+ * (e.g. full-bleed bands that manage their own wrap).
+ */
+interface Props {
+  id?: string;
+  wrap?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const { id, wrap = true, class: className = "", ...rest } = Astro.props;
+---
+
+<section id={id} class={["dv-section", className].filter(Boolean).join(" ")} {...rest}>
+  {wrap ? <div class="wrap"><slot /></div> : <slot />}
+</section>
+
+<style>
+  .dv-section {
+    padding: 88px 0;
+    position: relative;
+  }
+</style>

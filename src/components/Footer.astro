@@ -1,0 +1,72 @@
+---
+/**
+ * Footer.astro — logo + tagline + the FULL compliance disclaimer.
+ * Disclaimer text lives in src/lib/site.ts. Present on every page.
+ */
+import { brand, disclaimer } from "../lib/site";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<footer class={["dv-footer", className].filter(Boolean).join(" ")}>
+  <div class="wrap">
+    <div class="dv-footer__top">
+      <div class="dv-footer__logo font-display">
+        <span class="dv-footer__dot"></span>{brand.name}
+      </div>
+      <div class="dv-footer__small">
+        {brand.tagline} {brand.taglineAlt} · {brand.email}
+      </div>
+    </div>
+    <p class="dv-footer__disclaimer">{disclaimer}</p>
+  </div>
+</footer>
+
+<style>
+  .dv-footer {
+    border-top: 2px solid var(--color-ink);
+    padding: 44px 0;
+    background: var(--color-paper);
+  }
+  .dv-footer__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .dv-footer__logo {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.5ch;
+  }
+  .dv-footer__dot {
+    width: 11px;
+    height: 11px;
+    background: var(--color-indigo);
+    border: 2px solid var(--color-ink);
+    border-radius: 50%;
+  }
+  .dv-footer__small {
+    color: var(--color-ink-soft);
+    font-size: 0.86rem;
+    max-width: 46ch;
+  }
+  .dv-footer__disclaimer {
+    color: var(--color-ink-soft);
+    font-size: 0.78rem;
+    margin-top: 24px;
+    max-width: 84ch;
+    line-height: 1.65;
+    border-top: 1px dashed rgba(14, 14, 14, 0.25);
+    padding-top: 18px;
+  }
+</style>

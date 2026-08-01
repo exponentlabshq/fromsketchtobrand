@@ -1,0 +1,59 @@
+---
+/**
+ * Card.astro — bordered paper-2 surface with hard offset shadow + hover lift.
+ * Used for deliverables, steps, plans. Optional `icon` prop (rendered in a
+ * bordered yellow chip) or an `icon` named slot for richer markup.
+ */
+interface Props {
+  icon?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const { icon, class: className = "", ...rest } = Astro.props;
+const hasIconSlot = Astro.slots.has("icon");
+---
+
+<article class={["dv-card", className].filter(Boolean).join(" ")} {...rest}>
+  {
+    hasIconSlot ? (
+      <div class="dv-card__ic">
+        <slot name="icon" />
+      </div>
+    ) : (
+      icon && <div class="dv-card__ic">{icon}</div>
+    )
+  }
+  <slot />
+</article>
+
+<style>
+  .dv-card {
+    border: 2px solid var(--color-ink);
+    border-radius: var(--radius-card);
+    padding: 26px;
+    background: var(--color-paper-2);
+    box-shadow: var(--shadow);
+    transition:
+      transform 0.2s var(--ease),
+      box-shadow 0.2s var(--ease);
+  }
+  .dv-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg);
+  }
+  .dv-card__ic {
+    width: 44px;
+    height: 44px;
+    border: 2px solid var(--color-ink);
+    border-radius: 10px;
+    background: var(--color-yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.2rem;
+    margin-bottom: 14px;
+  }
+</style>

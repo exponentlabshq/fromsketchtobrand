@@ -1,0 +1,106 @@
+---
+/**
+ * Nav.astro — sticky top nav: paper bg, bottom ink border. Logo (indigo dot +
+ * "Zorro Funding"), in-page section links with an animated indigo underline
+ * (scaleX on hover), plus a primary CTA Button.
+ */
+import Button from "./Button.astro";
+import { brand, primaryCta } from "../lib/site";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+
+const links = [
+  { label: "The sketch", href: "#sketch" },
+  { label: "Brand kit", href: "#brandkit" },
+  { label: "Packaging", href: "#packaging" },
+  { label: "Character", href: "#character" },
+  { label: "The trailer", href: "#trailer" },
+];
+---
+
+<nav class={["dv-nav", className].filter(Boolean).join(" ")}>
+  <div class="wrap dv-nav__in">
+    <a href="/" class="dv-nav__logo font-display" aria-label={`${brand.name} home`}>
+      <span class="dv-nav__dot"></span>{brand.name}
+    </a>
+    <div class="dv-nav__links">
+      {links.map((l) => <a href={l.href} class="dv-nav__link">{l.label}</a>)}
+      <Button href={primaryCta.href} class="dv-nav__cta">{primaryCta.label}</Button>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .dv-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--color-paper);
+    border-bottom: 2px solid var(--color-ink);
+  }
+  .dv-nav__in {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .dv-nav__logo {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.5ch;
+  }
+  .dv-nav__dot {
+    width: 11px;
+    height: 11px;
+    background: var(--color-indigo);
+    border: 2px solid var(--color-ink);
+    border-radius: 50%;
+  }
+  .dv-nav__links {
+    display: flex;
+    gap: 26px;
+    align-items: center;
+  }
+  .dv-nav__link {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    position: relative;
+  }
+  .dv-nav__link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 2.5px;
+    width: 100%;
+    background: var(--color-indigo);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.32s var(--ease);
+  }
+  .dv-nav__link:hover::after {
+    transform: scaleX(1);
+  }
+  .dv-nav__links :global(.dv-nav__cta) {
+    padding: 9px 16px;
+    font-size: 0.88rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .dv-nav__links :global(.dv-nav__cta:hover) {
+    box-shadow: var(--shadow);
+  }
+  @media (max-width: 860px) {
+    .dv-nav__link {
+      display: none;
+    }
+  }
+</style>

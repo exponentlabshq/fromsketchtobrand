@@ -1,0 +1,68 @@
+---
+/**
+ * Marquee.astro — decorative scrolling band: ink bg, paper display text,
+ * yellow ✦ separators. `aria-hidden="true"` (purely decorative). The track is
+ * duplicated so the loop is seamless. Animation is paused/none under
+ * `prefers-reduced-motion: reduce` (the global rule targets `.marquee-track`).
+ */
+interface Props {
+  items?: string[];
+  /** seconds for one full loop (default 32) */
+  duration?: number;
+  class?: string;
+}
+
+const defaultItems = [
+  "Raise as a Service",
+  "Build the crowd before the raise",
+  "AI-native creative at volume",
+  "Tools · workflows · playbooks",
+  "Powered with Zorro Fund",
+];
+
+const { items = defaultItems, duration = 32, class: className = "" } = Astro.props;
+// Duplicate for a seamless -50% loop.
+const loop = [...items, ...items];
+---
+
+<div class={["dv-marquee", className].filter(Boolean).join(" ")} aria-hidden="true">
+  <div class="marquee-track dv-marquee__track" style={`animation-duration:${duration}s`}>
+    {loop.map((item) => <span class="dv-marquee__item">{item}</span>)}
+  </div>
+</div>
+
+<style>
+  .dv-marquee {
+    border-top: 2px solid var(--color-ink);
+    border-bottom: 2px solid var(--color-ink);
+    background: var(--color-ink);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 12px 0;
+  }
+  .dv-marquee__track {
+    display: inline-flex;
+    animation: dv-marquee-scroll 32s linear infinite;
+  }
+  .dv-marquee__item {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--color-paper);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    padding-right: 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 40px;
+  }
+  .dv-marquee__item::after {
+    content: "✦";
+    color: var(--color-yellow);
+  }
+  @keyframes dv-marquee-scroll {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>

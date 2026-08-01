@@ -1,0 +1,74 @@
+---
+/**
+ * Button.astro — brutalist button/link.
+ * Variants:
+ *  - primary (default): indigo bg, white text
+ *  - alt: paper-2 bg, ink text
+ * 2px ink border, 12px radius, hard offset shadow (5px→7px on hover lift),
+ * active press-in. Renders an <a> when `href` is set, otherwise a <button>.
+ */
+interface Props {
+  variant?: "primary" | "alt";
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  variant = "primary",
+  href,
+  type = "button",
+  class: className = "",
+  ...rest
+} = Astro.props;
+
+const classes = ["dv-btn", variant === "alt" ? "dv-btn--alt" : "dv-btn--primary", className]
+  .filter(Boolean)
+  .join(" ");
+---
+
+{
+  href ? (
+    <a href={href} class={classes} {...rest}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={classes} {...rest}>
+      <slot />
+    </button>
+  )
+}
+
+<style>
+  .dv-btn {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: inline-block;
+    border: 2px solid var(--color-ink);
+    padding: 13px 22px;
+    border-radius: var(--radius-btn);
+    box-shadow: var(--shadow);
+    transition:
+      transform 0.18s var(--ease),
+      box-shadow 0.18s var(--ease);
+  }
+  .dv-btn--primary {
+    background: var(--color-indigo);
+    color: #fff;
+  }
+  .dv-btn--alt {
+    background: var(--color-paper-2);
+    color: var(--color-ink);
+  }
+  .dv-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg);
+  }
+  .dv-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--color-ink);
+  }
+</style>

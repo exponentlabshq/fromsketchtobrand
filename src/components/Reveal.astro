@@ -1,0 +1,37 @@
+---
+/**
+ * Reveal.astro — opts its slotted content into the motion.ts scroll-reveal.
+ *
+ * It renders a wrapper carrying the `.reveal` class (resting state defined in
+ * global.css: opacity 0, translateY 14px, blur 5px). `motion.ts`'s
+ * `initScrollReveal('.reveal')` animates it in on scroll and groups sibling
+ * `.reveal` elements under the same parent so they stagger (~0.07s) — so
+ * placing multiple <Reveal> as siblings yields a staggered entrance.
+ *
+ * Under `prefers-reduced-motion: reduce` the global CSS forces the final state
+ * immediately (and motion.ts is a no-op), so content is never left hidden.
+ *
+ * Props:
+ *  - as: wrapper tag (default "div")
+ *  - stagger: when true, the wrapper is a `.dv-reveal-group` and its DIRECT
+ *    children each become reveal targets (marked by `initRevealGroups()` in
+ *    motion.ts). Because they share one parent, motion.ts staggers them ~0.07s.
+ *    Pass grid/flex layout via `class` so the wrapper lays the children out.
+ */
+interface Props {
+  as?: keyof HTMLElementTagNameMap;
+  stagger?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const { as: Tag = "div", stagger = false, class: className = "", ...rest } = Astro.props as Props;
+
+const classes = stagger
+  ? ["dv-reveal-group", className].filter(Boolean).join(" ")
+  : ["reveal", className].filter(Boolean).join(" ");
+---
+
+<Tag class={classes} {...rest}>
+  <slot />
+</Tag>

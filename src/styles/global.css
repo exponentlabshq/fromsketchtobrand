@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+/* ===========================================================================
+   Done Viral — neo-brutalist editorial brand foundation
+   Tailwind v4 CSS-first config. NO tailwind.config.js.
+   =========================================================================== */
+
+/* `static` forces Tailwind v4 to always emit these CSS variables (even unused
+   ones like --color-indigo-d), so the brand tokens are reliable ground truth. */
+@theme static {
+  /* ---- Brand palette (exact hexes from Done_Viral_Landing.html) ---- */
+  --color-paper: #F5F3EC;     /* page background ("founder paper") */
+  --color-paper-2: #FFFFFF;   /* card / surface background */
+  --color-ink: #0E0E0E;       /* text, borders, shadows */
+  --color-ink-soft: #3C3A35;  /* secondary text (~9:1 on paper) */
+  --color-indigo: #3B2EFF;    /* electric indigo accent */
+  --color-indigo-d: #2C1FD6;  /* indigo hover/dark */
+  --color-yellow: #FFE600;    /* signal yellow */
+
+  /* ---- Typography ---- */
+  --font-display: "Archivo", sans-serif;
+  --font-body: "Archivo", sans-serif;
+  --font-mono: "Space Mono", monospace;
+
+  /* ---- Brand primitives ---- */
+  /* Hard offset shadows (NO blur) */
+  --shadow-offset: 5px 5px 0 var(--color-ink);
+  --shadow-offset-lg: 7px 7px 0 var(--color-ink);
+  --shadow-offset-sm: 3px 3px 0 var(--color-ink);
+
+  /* Radii */
+  --radius-btn: 12px;
+  --radius-card: 16px;
+  --radius-pill: 100px;
+  --radius-chip: 8px;
+
+  /* Motion easing */
+  --ease-brand: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Expose primitives as plain CSS vars too (theme tokens above already create
+   --color-*, --font-*, etc.; these aliases match the source HTML naming and
+   make the offset-shadow / ease / border primitives easy to reference). */
+:root {
+  --border-ink: 2px solid var(--color-ink);
+  --shadow: 5px 5px 0 var(--color-ink);
+  --shadow-lg: 7px 7px 0 var(--color-ink);
+  --shadow-sm: 3px 3px 0 var(--color-ink);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------------------------------------------------------------------------
+   Base layer
+   --------------------------------------------------------------------------- */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: var(--color-yellow);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-indigo);
+    outline-offset: 2px;
+  }
+
+  /* Display headings use Archivo at normal width. The source doneviral repo
+     stretches this to 125% via the wdth variation axis ("Archivo Expanded" is
+     not a separate font family — it's that axis on variable Archivo, range
+     62–125). We tried it and it reads as squished/flattened: letterforms like
+     "o" and "P" get stretched wide at the same cap-height, so every round
+     counter looks like a flattened oval — a per-glyph effect, independent of
+     line-height (tight line-height on top of it made things worse, but
+     removing the tight line-height alone did not fix the underlying flattened
+     letterforms). Reported twice as "still looks squished" and removed on
+     purpose. Do not reintroduce font-stretch / the wdth axis on headings in
+     this project without checking with the user first — it's the actual
+     source of the squish, not just a line-height side effect. */
+  .font-display,
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-stretch: 100%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Brand utilities / primitives (usable by components in later features)
+   --------------------------------------------------------------------------- */
+@layer components {
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 26px;
+  }
+
+  .mono {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Motion — Emil-style: fast, ease-out, small, blur-up
+   The reveal classes encode the resting (pre-reveal) and final states so
+   motion.ts can simply add `.in`. Reduced-motion forces the final state.
+   --------------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(5px);
+  transition:
+    opacity 0.6s var(--ease),
+    transform 0.6s var(--ease),
+    filter 0.6s var(--ease);
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion — hard requirement. Disable ALL animation/transition and
+   show final state immediately; marquee static.
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .marquee-track {
+    animation: none !important;
+  }
+}
