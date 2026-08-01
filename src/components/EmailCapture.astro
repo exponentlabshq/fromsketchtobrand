@@ -1,0 +1,47 @@
+---
+/**
+ * EmailCapture.astro — the "I wanna learn how to do this." email form.
+ * Multiple instances can exist on one page; each needs a unique `id` prop
+ * so input ids don't collide. The submit handler (in index.astro's
+ * bottom <script>) is wired generically via the shared `.capture-form`
+ * class, not by id, so any number of instances just work.
+ */
+import Button from "./Button.astro";
+
+interface Props {
+  id: string;
+  class?: string;
+}
+
+const { id, class: className = "" } = Astro.props;
+const inputId = `capture-email-${id}`;
+---
+
+<form class={["capture-form", "reveal", className].filter(Boolean).join(" ")}>
+  <label for={inputId} class="capture-label">I wanna learn how to do this.</label>
+  <div class="capture-row">
+    <input id={inputId} type="email" name="email" placeholder="you@email.com" required autocomplete="email" class="capture-input" />
+    <Button type="submit" class="capture-submit">Count me in</Button>
+  </div>
+  <p class="capture-status" role="status"></p>
+</form>
+
+<style>
+  .capture-form { margin-top: 40px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .capture-label { display: block; font-weight: 700; margin-bottom: 14px; color: var(--color-paper); }
+  .capture-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .capture-input {
+    flex: 1 1 240px;
+    padding: 13px 16px;
+    font-size: 0.95rem;
+    font-family: var(--font-body);
+    border: 2px solid var(--color-ink);
+    border-radius: var(--radius-btn);
+    background: var(--color-paper-2);
+    color: var(--color-ink);
+    outline: none;
+  }
+  .capture-input:focus { outline: 3px solid var(--color-indigo); outline-offset: 1px; }
+  .capture-submit { flex-shrink: 0; }
+  .capture-status { margin-top: 14px; font-size: 0.85rem; color: rgba(247, 244, 239, 0.75); min-height: 1.2em; }
+</style>
