@@ -193,6 +193,14 @@ const marqueeItems = [
       <div class="wrap">
         <h2 class="reveal">This is what an AI workflow looks like when the founder is real and the stakes are real.</h2>
         <p class="reveal">Sketch → Brand Kit → Packaging → Character &amp; Motion → Trailer. Built by Exponent Labs — the same syndicate model behind Zorro Funding and the rest of tonight's case studies.</p>
+        <form id="email-capture-form" class="capture-form reveal">
+          <label for="capture-email" class="capture-label">I wanna learn how to do this.</label>
+          <div class="capture-row">
+            <input id="capture-email" type="email" name="email" placeholder="you@email.com" required autocomplete="email" class="capture-input" />
+            <Button type="submit" class="capture-submit">Count me in</Button>
+          </div>
+          <p id="capture-status" class="capture-status" role="status"></p>
+        </form>
       </div>
     </section>
   </main>
@@ -206,6 +214,40 @@ const marqueeItems = [
   initRevealGroups();
   initScrollReveal();
   initCounters();
+
+  // Email capture -> Google Apps Script -> Google Sheet.
+  // Replace with the real /exec URL after deploying google-apps-script/Code.gs.
+  const GAS_ENDPOINT = "REPLACE_WITH_DEPLOYED_APPS_SCRIPT_URL";
+
+  const form = document.getElementById("email-capture-form") as HTMLFormElement | null;
+  const status = document.getElementById("capture-status");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const emailInput = document.getElementById("capture-email") as HTMLInputElement | null;
+    const email = emailInput?.value.trim() ?? "";
+    if (!email) return;
+
+    const submitBtn = form.querySelector<HTMLButtonElement>(".capture-submit");
+    if (submitBtn) submitBtn.disabled = true;
+    if (status) status.textContent = "Sending...";
+
+    try {
+      // Apps Script Web Apps don't return CORS headers, so the response body
+      // isn't readable from the browser. no-cors still delivers the POST.
+      await fetch(GAS_ENDPOINT, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify({ email, source: window.location.href }),
+      });
+      if (status) status.textContent = "You're in — we'll be in touch.";
+      form.reset();
+    } catch {
+      if (status) status.textContent = "Something went wrong — try again in a sec.";
+      if (submitBtn) submitBtn.disabled = false;
+    }
+  });
 </script>
 
 <style>
@@ -320,6 +362,25 @@ const marqueeItems = [
   }
   .video-frame-lg { max-width: 1080px; }
   .video-frame-lg video { width: 100%; display: block; }
+
+  /* ---- Email capture (final CTA) ---- */
+  .capture-form { margin-top: 40px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .capture-label { display: block; font-weight: 700; margin-bottom: 14px; color: var(--color-paper); }
+  .capture-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .capture-input {
+    flex: 1 1 240px;
+    padding: 13px 16px;
+    font-size: 0.95rem;
+    font-family: var(--font-body);
+    border: 2px solid var(--color-ink);
+    border-radius: var(--radius-btn);
+    background: var(--color-paper-2);
+    color: var(--color-ink);
+    outline: none;
+  }
+  .capture-input:focus { outline: 3px solid var(--color-indigo); outline-offset: 1px; }
+  .capture-submit { flex-shrink: 0; }
+  .capture-status { margin-top: 14px; font-size: 0.85rem; color: rgba(247, 244, 239, 0.75); min-height: 1.2em; }
 </style>
 
 

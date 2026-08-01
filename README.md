@@ -34,6 +34,14 @@ Every image in this project is a real screenshot from the actual workflow — no
 
 Forked from `exponentlabshq/zorro-viral-landing` (private) — a neo-brutalist editorial design system (Astro + Tailwind v4): cream paper background, hard offset black shadows, electric indigo + signal yellow accents, Archivo display type. Content swapped in, design system unchanged. The original repo's password-gated survey/AI-dossier-generation engine (Netlify Functions, Edge Functions, Google Apps Script) was removed — this page doesn't need it. Full detail in `agents.md`.
 
+## Email capture
+
+The final CTA ("I wanna learn how to do this.") posts an email to a Google Apps Script Web App, which appends it to a Google Sheet. No survey, no other fields.
+
+- Script source: `google-apps-script/Code.gs`
+- Deploy: open the target Sheet → Extensions → Apps Script → paste in `Code.gs` → Deploy → New deployment → Web app → Execute as *Me* → Who has access *Anyone* → Deploy → copy the `/exec` URL
+- Wire it up: set `GAS_ENDPOINT` in `src/pages/index.astro` (bottom `<script>` block) to that URL, then rebuild and redeploy
+
 ## Running locally
 
 ```bash
