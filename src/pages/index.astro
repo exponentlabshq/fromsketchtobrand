@@ -170,6 +170,53 @@ const marqueeItems = [
       </Reveal>
     </Section>
 
+    <!-- PHASE 14 — THE INVESTMENT -->
+    <Section id="investment">
+      <SecHeader label="Phase 14" title="Someone else was watching the whole time." />
+      <Reveal class="prose-block">
+        <p class="story-lede">Brian Ahuja, MD was in the same group chat as Abinashi — not pitched, not demoed, just there, watching the sketch turn into a brand kit, the brand kit turn into packaging, the packaging turn into a character that could move.</p>
+        <p>He watched all of it happen in real time. Then he decided to invest $5,000 — becoming Umami Salt's first investor.</p>
+      </Reveal>
+    </Section>
+
+    <!-- MEET THE FOUNDER — ABINASHI KHALSA -->
+    <Section id="founder">
+      <SecHeader label="Meet the Founder" title="Abinashi Khalsa" lead="Founder & CEO, Umami Salt (working name) · abinashikhalsa@gmail.com · (442) 226-8824" />
+      <Reveal class="prose-block">
+        <p class="story-lede">Nearly twenty years building startups, the last thirteen exclusively in manufacturing. Three companies founded since 2007, one consistent shape: take a physical product into a new or difficult category, build the financial and operational machinery around it from nothing, and run it with discipline until it scales. The finance leader who also knows the factory floor — BOM planning, supply chain, cost analysis at the discrete-process level — and the operator who brings order to early-stage chaos.</p>
+
+        <h3 class="font-display">Track record</h3>
+        <p><strong>Founding CFO of a California cannabis manufacturer, launched at legalization.</strong> Built the company's entire financial infrastructure from the ground up in a brand-new regulated consumer category: accounting systems, financial controls, ERP, and a weekly cash-planning discipline that gave leadership a day-to-day read on cash and true COGS. Grew revenue from $1M in 2019 to $8M trailing-twelve-months by 2024, managed the Series A round alongside the CEO, and led the acquisition and integration of a smaller competitor. Six years navigating compliance, contract negotiation, and board reporting in one of the most heavily regulated consumer categories in the country — the closest analog that exists to launching a food CPG brand.</p>
+        <p><strong>Interim CFO of a natural-foods manufacturer.</strong> Delivered the financial planning and analysis that took the company into Costco — selling into more than 400 warehouses.</p>
+        <p><strong>Business operations and manufacturing director at a biomass-energy equipment manufacturer.</strong> Ran finance in the absence of a CFO while also directing production: a 1,500-part bill of materials, vendor qualification, international logistics, and a cost-reduction program that cut total product cost 20%. Separately built $30M in grant proposal budgets and managed $5M in awarded state energy grants.</p>
+        <p><strong>Tapped as CFO of a U.S. chemical-manufacturing startup</strong>, stepping into the seat when its first institutional raise lands — already owning the financial modeling, unit economics, and capital strategy behind that raise as its finance consultant.</p>
+
+        <h3 class="font-display">Why salt</h3>
+        <p>This is not a whim. Abinashi began developing Umami Salt in 2023 — label design, packaging engineering, and vendor quotes predate the current launch push by three years. The founding team formed around a product that already existed: a co-founder's locked formulation, a secured domain, and Abinashi as the operator who takes it from recipe to shelf.</p>
+
+        <h3 class="font-display">What that means for an investor</h3>
+        <p>The premise of this venture is that a great product fails without operational and capital discipline — and that discipline is precisely what Abinashi has spent his career supplying. Company formation, compliance-first go-to-market, sourcing and packaging economics, staged fundraising that protects the cap table, and cash management measured weekly, not quarterly. He is the majority founder, he intends to keep steering, and he prices everything on the base case.</p>
+      </Reveal>
+    </Section>
+
+    <!-- ROTI — RETURN ON TOKEN INVESTMENT -->
+    <section class="band">
+      <div class="wrap">
+        <SecHeader
+          class="band-head"
+          label="ROTI"
+          title="Return on Token Investment"
+          lead="What this actually cost, in real tools — no hidden spend."
+        />
+        <Reveal stagger class="stats">
+          <div class="stat"><div class="stat-num">$0</div><div class="stat-label">ChatGPT — image creation + Higgsfield prompts</div></div>
+          <div class="stat"><div class="stat-num">$0</div><div class="stat-label">WhatsApp — coordination, feedback, sharing</div></div>
+          <div class="stat"><div class="stat-num">$7</div><div class="stat-label">Higgsfield — premium cinematic quality</div></div>
+        </Reveal>
+        <p class="band-note mono">Total spend: $7. Everything else on this page, free.</p>
+      </div>
+    </section>
+
     <!-- BENCHMARK BAND -->
     <section class="band">
       <div class="wrap">
@@ -217,7 +264,7 @@ const marqueeItems = [
 
   // Email capture -> Google Apps Script -> Google Sheet.
   // Replace with the real /exec URL after deploying google-apps-script/Code.gs.
-  const GAS_ENDPOINT = "REPLACE_WITH_DEPLOYED_APPS_SCRIPT_URL";
+  const GAS_ENDPOINT = "https://script.google.com/macros/s/AKfycbzHtpEPHPRLj6y74QhDA37IW5dFQ_nW0UT6NKPmiBJyc5BX21w1WFuEX7xugG0mBnciqg/exec";
 
   const form = document.getElementById("email-capture-form") as HTMLFormElement | null;
   const status = document.getElementById("capture-status");
@@ -381,6 +428,24 @@ const marqueeItems = [
   .capture-input:focus { outline: 3px solid var(--color-indigo); outline-offset: 1px; }
   .capture-submit { flex-shrink: 0; }
   .capture-status { margin-top: 14px; font-size: 0.85rem; color: rgba(247, 244, 239, 0.75); min-height: 1.2em; }
+
+  /* ---- Prose blocks: Investment beat + Founder bio ---- */
+  .prose-block { max-width: 720px; margin-top: 28px; }
+  .prose-block .story-lede {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  .prose-block p { font-size: 1rem; line-height: 1.75; color: var(--color-ink-soft); margin-bottom: 18px; }
+  .prose-block p strong { color: var(--color-ink); }
+  .prose-block h3 {
+    font-weight: 800;
+    font-size: 1.3rem;
+    margin: 36px 0 14px;
+    color: var(--color-ink);
+  }
+  .prose-block h3:first-child { margin-top: 0; }
 </style>
 
 
