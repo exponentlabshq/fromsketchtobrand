@@ -8,7 +8,7 @@ export const brand = {
   name: "Exponent Labs",
   tagline: "From a sketch,",
   taglineAlt: "to a finished brand.",
-  email: "hello@exponentlabs.ai",
+  email: "rocky@exponentlabs.ai",
   description:
     "A real before/after AI workflow: how one founder's WhatsApp sketch became a full brand kit, packaging, an animated character, and a finished trailer for Umami Salt. Built by Exponent Labs.",
   platform: "Exponent Labs",
