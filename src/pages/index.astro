@@ -57,6 +57,77 @@ const marqueeItems = [
       <Marquee class="hero-marquee" items={marqueeItems} />
     </header>
 
+    <!-- PREVIEW — THE WHOLE STORY, IN ADVANCE (30-second highlight reel) -->
+    <section class="preview-band" id="preview">
+      <div class="wrap">
+        <SecHeader
+          label="The 30-Second Version"
+          title="Here's the whole thing, fast."
+          lead="Full breakdown below."
+        />
+
+        <Reveal class="preview-beat">
+          <div class="preview-imgs">
+            <figure class="preview-img">
+              <img src="/assets/01-umamisalt-whatsapp-sketch.png" alt="Abinashi's original WhatsApp sketch" />
+              <figcaption class="cap">This.</figcaption>
+            </figure>
+            <span class="preview-arrow">&rarr;</span>
+            <figure class="preview-img">
+              <img src="/assets/03point1-umamisalt-initial-brandkit-image.jpeg" alt="The first brand kit result" />
+              <figcaption class="cap">Became THIS.</figcaption>
+            </figure>
+          </div>
+        </Reveal>
+
+        <Reveal class="preview-beat">
+          <p class="preview-line">But then we had a new idea.</p>
+          <div class="preview-imgs">
+            <figure class="preview-img">
+              <img src="/assets/04-umamisalt-package-design-pattern-to-emulate.webp" alt="Packaging reference Abinashi wanted to emulate" />
+              <figcaption class="cap">This...</figcaption>
+            </figure>
+            <span class="preview-arrow">&rarr;</span>
+            <figure class="preview-img">
+              <img src="/assets/04point5-umamisalt-brandkit-packaging-large.jpeg" alt="The finished packaging" />
+              <figcaption class="cap">...became this.</figcaption>
+            </figure>
+          </div>
+        </Reveal>
+
+        <Reveal class="preview-beat">
+          <p class="preview-line">But then we had a crazy idea. We weren't even sure it would work.</p>
+          <div class="preview-imgs">
+            <figure class="preview-img">
+              <img src="/assets/07-umamisalt-brandkit-character-sheet-martialarts.jpeg" alt="The finished character sheet" />
+              <figcaption class="cap">This...</figcaption>
+            </figure>
+            <span class="preview-arrow">&rarr;</span>
+            <figure class="preview-img preview-video">
+              <div class="video-frame">
+                <video autoplay muted loop playsinline>
+                  <source src="/assets/umamisalt-higgsfield-animation-final-output.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <figcaption class="cap">...became THIS.</figcaption>
+            </figure>
+          </div>
+        </Reveal>
+
+        <div class="preview-cta reveal">
+          <Button href="#sketch">See exactly how, step by step</Button>
+        </div>
+      </div>
+    </section>
+
+    <!-- MID-PAGE CTA — after Preview, before Phase 1 -->
+    <section class="cta-strip">
+      <div class="wrap">
+        <h3 class="reveal">Want to build something like this?</h3>
+        <EmailCapture id="preview" />
+      </div>
+    </section>
+
     <!-- PHASE 1 — THE SKETCH -->
     <Section id="sketch">
       <SecHeader label="Phase 1" title="It all started when Abinashi sent me this sketch." />
@@ -72,14 +143,6 @@ const marqueeItems = [
         <img class="shot-lg" src="/assets/02-umamisalt-chatGPT-prompt-to-brandkit-image-and-prompt-alone.png" alt="The ChatGPT prompt" />
       </Reveal>
     </Section>
-
-    <!-- MID-PAGE CTA — before Phase 3 -->
-    <section class="cta-strip">
-      <div class="wrap">
-        <h3 class="reveal">Want to build something like this?</h3>
-        <EmailCapture id="phase3" />
-      </div>
-    </section>
 
     <!-- PHASE 3 — THE RESULT -->
     <Section id="brandkit">
@@ -99,6 +162,14 @@ const marqueeItems = [
         <img class="shot-lg" src="/assets/03point2-umamisalt-whatsapp-sketch-to-brandkit-send.png" alt="Sending the brand kit to the group chat" />
       </Reveal>
     </Section>
+
+    <!-- MID-PAGE CTA — between Phase 4 and Phase 5 -->
+    <section class="cta-strip">
+      <div class="wrap">
+        <h3 class="reveal">Want to build something like this?</h3>
+        <EmailCapture id="phase5" />
+      </div>
+    </section>
 
     <!-- PHASE 5 — THE PACKAGING ASK -->
     <Section id="packaging">
@@ -336,6 +407,59 @@ const marqueeItems = [
   .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
   .hero-note { font-size: 0.92rem; color: var(--color-ink-soft); margin-bottom: 26px; }
   .badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+  /* ---- Preview band — 30-second highlight reel, right under the hero ---- */
+  .preview-band {
+    background: var(--color-paper-2);
+    border-top: 2px solid var(--color-ink);
+    border-bottom: 2px solid var(--color-ink);
+    padding: 64px 0 72px;
+    text-align: center;
+  }
+  .preview-beat { margin-top: 48px; }
+  .preview-line {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+    margin-bottom: 22px;
+  }
+  .preview-imgs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .preview-img { flex: 1 1 340px; max-width: 420px; margin: 0; }
+  .preview-img img {
+    width: 100%;
+    display: block;
+    border: 2px solid var(--color-ink);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow);
+    background: var(--color-paper);
+  }
+  .preview-img .cap { text-align: center; margin-top: 10px; }
+  .preview-video .video-frame {
+    border: 2px solid var(--color-ink);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    background: var(--color-ink);
+  }
+  .preview-video video { width: 100%; display: block; }
+  .preview-arrow {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 2.2rem;
+    color: var(--color-ink-soft);
+    flex-shrink: 0;
+  }
+  @media (max-width: 760px) {
+    .preview-imgs { flex-direction: column; }
+    .preview-arrow { transform: rotate(90deg); }
+  }
+  .preview-cta { margin-top: 44px; }
 
   /* ---- Problem split panels ---- */
   .split { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 12px; }
